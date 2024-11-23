@@ -1,4 +1,4 @@
-// index.js
+// index.js 
 // where your node app starts
 
 // Initialize project and load environment variables
