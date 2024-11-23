@@ -1,3 +1,7 @@
+// index.js
+// where your node app starts
+
+// Initialize project and load environment variables
 require('dotenv').config();
 const express = require('express');
 const app = express();
@@ -5,7 +9,7 @@ const app = express();
 // Set middleware untuk menghidupkan file statis
 app.use(express.static('public'));
 
-// Aktifkan `trust proxy` untuk mendapatkan IP asli jika di belakang proxy
+// Aktifkan trust proxy untuk mendapatkan IP asli jika di belakang proxy
 app.set('trust proxy', true);
 
 // Rute default (untuk mengirimkan halaman index)
@@ -15,9 +19,9 @@ app.get("/", (req, res) => {
 
 // Rute API untuk Header Parser
 app.get("/api/whoami", (req, res) => {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
-  const language = req.headers['accept-language'] || "Unknown";
-  const software = req.headers['user-agent'] || "Unknown";
+  const ip = req.ip; // Mendapatkan IP address pengguna
+  const language = req.get("Accept-Language"); // Mendapatkan bahasa dari header
+  const software = req.get("User-Agent"); // Mendapatkan informasi perangkat lunak dari header
 
   // Mengirimkan response JSON
   res.json({
@@ -29,5 +33,5 @@ app.get("/api/whoami", (req, res) => {
 
 // Jalankan server pada port yang ditentukan
 const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log(`App is listening on port ${listener.address().port}`);
+  console.log(App is listening on port ${listener.address().port});
 });
